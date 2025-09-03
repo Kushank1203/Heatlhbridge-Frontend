@@ -238,11 +238,16 @@ function UploadForm() {
     const formData = new FormData();
     files.forEach((file) => formData.append("files", file));
 
+    // Use the environment variable
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+
+
     try {
-      const res = await fetch("http://127.0.0.1:8000/process-claim/", {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(`${API_URL}/process-claim`, {
+  method: "POST",
+  body: formData,
+})
       const data = await res.json();
       setResult(data);
     } catch (error) {
